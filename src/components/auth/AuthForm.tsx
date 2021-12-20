@@ -1,6 +1,5 @@
-import { Form, Button, Row, Col } from "react-bootstrap";
 import classes from "./AuthForm.module.css";
-import { useState, useRef, Fragment } from "react";
+import { useState, useRef } from "react";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
@@ -14,8 +13,6 @@ const AuthForm = () => {
   const passwordInputRef = useRef(null);
 
   return (
-    <Fragment>
-      <img src={process.env.PUBLIC_URL + "/CGILogo.jpg"} alt="" />
       <section className={classes.auth}>
         <h1>{isLogin ? "Login" : "Sign Up"}</h1>
         <form>
@@ -47,7 +44,6 @@ const AuthForm = () => {
           </div>
         </form>
       </section>
-    </Fragment>
   );
 };
 export default AuthForm;
