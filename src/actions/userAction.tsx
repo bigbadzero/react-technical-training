@@ -7,7 +7,6 @@ import {
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../store/index";
-import { UserInfo } from "../reducers/userReducer";
 
 export const login =
   (
@@ -40,7 +39,7 @@ export const login =
       // }
 
       const data = await response.json();
-      const userData: UserInfo = {
+      const userData = {
         isLoggedIn:true,
         idToken: data.idToken,
         email: data.email,
@@ -55,6 +54,7 @@ export const login =
         type: USER_LOGIN_SUCCESS,
         payload: userData,
       });
+      localStorage.setItem("userInfo", JSON.stringify(userData));
     } catch (error) {
       // User login fail
       //   dispatch({
@@ -72,7 +72,7 @@ export const logout =
   async (
     dispatch: ThunkDispatch<RootState, unknown, AnyAction>
   ): Promise<void> => {
-    const userData: UserInfo = {
+    const userData = {
       isLoggedIn: false,
       idToken: undefined,
       email:undefined,
@@ -82,9 +82,12 @@ export const logout =
       registered: undefined,
     };
 
+    localStorage.removeItem("userInfo");
+
     dispatch({
       type: USER_LOGOUT,
       action: userData
     })
+    
 
   };

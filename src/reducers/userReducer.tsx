@@ -8,36 +8,36 @@ import {
 export interface UserState {
   loading?: boolean;
   error?: string;
-  userInfo:UserInfo;
+  userInfo: {
+    isLoggedIn?: boolean;
+    idToken?: string;
+    email?: string;
+    refreshToken?: string;
+    expiresIn?: string;
+    localId?: string;
+    registered?: boolean;
+  };
 }
 
-export interface UserInfo{
-      isLoggedIn: boolean;
-      idToken?:string;
-      email?:string;
-      refreshToken?: string;
-      expiresIn?: string;
-      localId?: string;
-      registered?: boolean;
-}
+// export interface UserInfo {
+//   isLoggedIn?: boolean;
+//   idToken?: string;
+//   email?: string;
+//   refreshToken?: string;
+//   expiresIn?: string;
+//   localId?: string;
+//   registered?: boolean;
+// }
 
 interface Action {
   type: string;
-  payload?: UserInfo;
+  payload?: string;
 }
 
-const initUserInfo:UserInfo = {
-  isLoggedIn: false,
-}
-
-const initState:UserState = {
-  loading: false, 
-  error: undefined,
-  userInfo: initUserInfo
-}
-
-
-export const userLoginReducer = (state: UserState = initState, action: Action) => {
+export const userLoginReducer = (
+  state: UserState = { userInfo: {} },
+  action: Action
+) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };
@@ -45,8 +45,8 @@ export const userLoginReducer = (state: UserState = initState, action: Action) =
       return { loading: false, userInfo: action.payload };
     case USER_LOGIN_FAIL:
       return { loading: false, error: action.payload };
-    case USER_LOGOUT: 
-      return {loading: false,  userInfo: action.payload};
+    case USER_LOGOUT:
+      return { loading: false, userInfo: action.payload };
     default:
       return state;
   }

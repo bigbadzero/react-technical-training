@@ -6,12 +6,12 @@ import { userLoginReducer } from "../reducers/userReducer";
 const reducers = combineReducers({
   userLogin: userLoginReducer,
 });
-const userInfoFromStorage = localStorage.getItem("userInfo")
+const userInfo = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo")!)
   : undefined;
 
 const initialState = {
-  userLogin: { userInfoFromStorage },
+  userLogin: { userInfo },
 } as {};
 
 const middleware = [thunk];
