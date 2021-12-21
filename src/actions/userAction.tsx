@@ -1,12 +1,13 @@
 import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
-  USER_LOGIN_REQUEST
+  USER_LOGIN_REQUEST,
+  USER_LOGOUT,
 } from "../constants/userConstants";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../store/index";
-import {UserInfo} from "../reducers/userReducer";
+import { UserInfo } from "../reducers/userReducer";
 
 export const login =
   (
@@ -39,7 +40,8 @@ export const login =
       // }
 
       const data = await response.json();
-      const userData:UserInfo = {
+      const userData: UserInfo = {
+        isLoggedIn:true,
         idToken: data.idToken,
         email: data.email,
         refreshToken: data.refreshToken,
@@ -55,12 +57,34 @@ export const login =
       });
     } catch (error) {
       // User login fail
-    //   dispatch({
-    //     type: USER_LOGIN_FAIL,
-    //     payload:
-    //       error.response && error.response.data.message
-    //         ? error.response.data.message
-    //         : error.message,
-    //   });
+      //   dispatch({
+      //     type: USER_LOGIN_FAIL,
+      //     payload:
+      //       error.response && error.response.data.message
+      //         ? error.response.data.message
+      //         : error.message,
+      //   });
     }
+  };
+
+export const logout =
+  (): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
+  async (
+    dispatch: ThunkDispatch<RootState, unknown, AnyAction>
+  ): Promise<void> => {
+    const userData: UserInfo = {
+      isLoggedIn: false,
+      idToken: undefined,
+      email:undefined,
+      refreshToken: undefined,
+      expiresIn: undefined,
+      localId: undefined,
+      registered: undefined,
+    };
+
+    dispatch({
+      type: USER_LOGOUT,
+      action: userData
+    })
+
   };

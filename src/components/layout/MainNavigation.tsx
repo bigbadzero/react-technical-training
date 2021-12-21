@@ -4,12 +4,19 @@ import { login } from "../../actions/userAction";
 import { RootState } from "../../store/index";
 import { UserState } from "../../reducers/userReducer";
 import { Fragment } from "react";
+import {logout} from '../../actions/userAction'
 
 const MainNavigation = () => {
+  const dispatch = useDispatch();
   const userLogin = useSelector<RootState, UserState>(
     (state) => state.userLogin
   );
-  const isLoggedIn = userLogin.isLoggedIn;
+  const { userInfo } = userLogin;
+  const isLoggedIn = userInfo ? userInfo.isLoggedIn : null;
+
+  const logoutHandler = () =>{
+    dispatch(logout());
+  }
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -23,7 +30,7 @@ const MainNavigation = () => {
               <Nav.Link href="">Pricing</Nav.Link>
             </Nav>
             <Nav className="mr-right">
-              <Nav.Link href="">Logout</Nav.Link>
+              <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
             </Nav>
           </Fragment>
         ) : null}

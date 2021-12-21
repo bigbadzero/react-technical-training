@@ -1,18 +1,21 @@
 import classes from "./AuthForm.module.css";
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {login} from '../../actions/userAction'
-import {useNavigate} from 'react-router-dom';
-import {RootState} from '../../store/index';
-import {UserState} from '../../reducers/userReducer';
+import { login } from "../../actions/userAction";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "../../store/index";
+import { UserState } from "../../reducers/userReducer";
 
 const AuthForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userLogin = useSelector<RootState, UserState>(state => state.userLogin);
-  const isLoggedIn = userLogin.isLoggedIn;
-  
+  const userLogin = useSelector<RootState, UserState>(
+    (state) => state.userLogin
+  );
+  const { userInfo } = userLogin;
+  const isLoggedIn = userInfo ? userInfo.isLoggedIn : null;
+
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -36,15 +39,15 @@ const AuthForm = () => {
       url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAIe4ICqaj0KRGu0PW9oB-LO18Tdp49XsU";
     }
-    // reference dispatch 
-    dispatch(login(url,enteredEmail, enteredPassword))
+    // reference dispatch
+    dispatch(login(url, enteredEmail, enteredPassword));
   };
 
   useEffect(() => {
-    if(isLoggedIn){
-      navigate('/')
+    if (isLoggedIn) {
+      navigate("/");
     }
-  },[isLoggedIn,navigate])
+  }, [isLoggedIn, navigate]);
 
   return (
     <section className={classes.auth}>
