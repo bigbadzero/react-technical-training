@@ -1,12 +1,17 @@
 import classes from "./AuthForm.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {login} from '../../actions/userAction'
 import {useNavigate} from 'react-router-dom';
+import {RootState} from '../../store/index';
+import {UserState} from '../../reducers/userReducer';
 
 const AuthForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const userLogin = useSelector<RootState, UserState>(state => state.userLogin);
+  const isLoggedIn = userLogin.isLoggedIn;
   
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,8 +38,13 @@ const AuthForm = () => {
     }
     // reference dispatch 
     dispatch(login(url,enteredEmail, enteredPassword))
-    navigate('/');
   };
+
+  useEffect(() => {
+    if(isLoggedIn){
+      navigate('/')
+    }
+  },[isLoggedIn,navigate])
 
   return (
     <section className={classes.auth}>

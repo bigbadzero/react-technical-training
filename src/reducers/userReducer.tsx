@@ -8,7 +8,7 @@ import {
 export interface UserState {
   loading?: boolean;
   error?: string;
-  isLoggedIn?: boolean;
+  isLoggedIn: boolean;
   userInfo:UserInfo;
 }
 
@@ -26,7 +26,14 @@ interface Action {
   payload?: UserInfo;
 }
 
-export const userLoginReducer = (state: UserState = {userInfo:{}}, action: Action) => {
+const initState:UserState = {
+  loading: false, 
+  error: undefined,
+  isLoggedIn: false,
+  userInfo: {}
+}
+
+export const userLoginReducer = (state: UserState = initState, action: Action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };

@@ -10,9 +10,7 @@ const Home = () => {
     const isLoggedIn = userLogin.isLoggedIn;
 
     useEffect(() => {
-        if(isLoggedIn) {
-            return;
-        }else{
+        if(!isLoggedIn) {
             navigate('/login')
         }
     },[navigate,isLoggedIn])

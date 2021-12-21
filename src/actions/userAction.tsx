@@ -1,6 +1,7 @@
 import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
+  USER_LOGIN_REQUEST
 } from "../constants/userConstants";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
@@ -18,7 +19,7 @@ export const login =
   ): Promise<void> => {
     try {
       dispatch({
-        type: USER_LOGIN_SUCCESS,
+        type: USER_LOGIN_REQUEST,
       });
 
       //fetch data from backend
@@ -31,6 +32,11 @@ export const login =
           returnSecureToken: true,
         }),
       });
+
+      // if(!response.ok){
+      //   const errorMessage:string = "bad resonse";
+      //   throw new Error(errorMessage);
+      // }
 
       const data = await response.json();
       const userData:UserInfo = {
