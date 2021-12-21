@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/index";
-import { UserState } from "../../reducers/userReducer";
+import { UserState } from "../../store/reducers/userReducer";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

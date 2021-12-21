@@ -1,10 +1,10 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../actions/userAction";
+import { login } from "../../store/actions/userAction";
 import { RootState } from "../../store/index";
-import { UserState } from "../../reducers/userReducer";
+import { UserState } from "../../store/reducers/userReducer";
 import { Fragment } from "react";
-import {logout} from '../../actions/userAction'
+import {logout} from '../../store/actions/userAction';
 
 const MainNavigation = () => {
   const dispatch = useDispatch();

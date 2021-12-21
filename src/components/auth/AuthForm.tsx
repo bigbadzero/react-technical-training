@@ -1,10 +1,10 @@
 import classes from "./AuthForm.module.css";
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../actions/userAction";
+import { login } from "../../store/actions/userAction";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/index";
-import { UserState } from "../../reducers/userReducer";
+import { UserState } from "../../store/reducers/userReducer";
 
 const AuthForm = () => {
   const navigate = useNavigate();
