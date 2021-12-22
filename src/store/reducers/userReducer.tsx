@@ -4,6 +4,9 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGOUT,
   USER_LOGIN_FAIL_ACKNOWLEDGED,
+  USER_DATA_REQUEST,
+  USER_DATA_REQUEST_FAIL,
+  USER_DATA_REQUEST_SUCCESS,
 } from "../constants/userConstants";
 
 export interface UserState {
@@ -18,6 +21,10 @@ export interface UserState {
     localId?: string;
     registered?: boolean;
   };
+  questionInfo:{
+    name?: string;
+    birthday?:Date;
+  }
 }
 interface Action {
   type: string;
@@ -25,7 +32,7 @@ interface Action {
 }
 
 export const userLoginReducer = (
-  state: UserState = { userInfo: {} },
+  state: UserState = { userInfo: {}, questionInfo:{} },
   action: Action
 ) => {
   switch (action.type) {
@@ -38,7 +45,9 @@ export const userLoginReducer = (
     case USER_LOGOUT:
       return { loading: false, userInfo: action.payload };
     case USER_LOGIN_FAIL_ACKNOWLEDGED:
-      return {loading: false, error: undefined}
+      return { loading: false, error: undefined };
+    case USER_DATA_REQUEST:
+      return { loading: true };
     default:
       return state;
   }
