@@ -1,6 +1,5 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/actions/userAction";
 import { RootState } from "../../store/index";
 import { UserState } from "../../store/reducers/userReducer";
 import { Fragment } from "react";

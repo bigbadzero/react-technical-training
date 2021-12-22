@@ -3,6 +3,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  USER_LOGIN_FAIL_ACKNOWLEDGED,
 } from "../constants/userConstants";
 
 export interface UserState {
@@ -18,17 +19,6 @@ export interface UserState {
     registered?: boolean;
   };
 }
-
-// export interface UserInfo {
-//   isLoggedIn?: boolean;
-//   idToken?: string;
-//   email?: string;
-//   refreshToken?: string;
-//   expiresIn?: string;
-//   localId?: string;
-//   registered?: boolean;
-// }
-
 interface Action {
   type: string;
   payload?: string;
@@ -47,6 +37,8 @@ export const userLoginReducer = (
       return { loading: false, error: action.payload };
     case USER_LOGOUT:
       return { loading: false, userInfo: action.payload };
+    case USER_LOGIN_FAIL_ACKNOWLEDGED:
+      return {loading: false, error: undefined}
     default:
       return state;
   }

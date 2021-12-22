@@ -5,6 +5,7 @@ import { login } from "../../store/actions/userAction";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/index";
 import { UserState } from "../../store/reducers/userReducer";
+import ErrorModal from '../ui/ErrorModal';
 
 const AuthForm = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const AuthForm = () => {
   const isLoggedIn = userInfo ? userInfo.isLoggedIn : null;
 
   const [isLogin, setIsLogin] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading] = useState<boolean>(false);
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
@@ -82,6 +83,7 @@ const AuthForm = () => {
           </button>
         </div>
       </form>
+      <ErrorModal />
     </section>
   );
 };

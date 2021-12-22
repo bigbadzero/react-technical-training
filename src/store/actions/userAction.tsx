@@ -3,6 +3,7 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGOUT,
+  USER_LOGIN_FAIL_ACKNOWLEDGED
 } from "../constants/userConstants";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
@@ -33,14 +34,18 @@ export const login =
         }),
       });
 
-      // if(!response.ok){
-      //   const errorMessage:string = "bad resonse";
-      //   throw new Error(errorMessage);
-      // }
+      if (!response.ok) {
+        const data = await response.json();
+        const error = data.error.message;
+        dispatch({
+          type: USER_LOGIN_FAIL,
+          payload: error,
+        });
+      }
 
       const data = await response.json();
       const userData = {
-        isLoggedIn:true,
+        isLoggedIn: true,
         idToken: data.idToken,
         email: data.email,
         refreshToken: data.refreshToken,
@@ -75,7 +80,7 @@ export const logout =
     const userData = {
       isLoggedIn: false,
       idToken: undefined,
-      email:undefined,
+      email: undefined,
       refreshToken: undefined,
       expiresIn: undefined,
       localId: undefined,
@@ -86,8 +91,19 @@ export const logout =
 
     dispatch({
       type: USER_LOGOUT,
-      action: userData
-    })
-    
+      action: userData,
+    });
+  };
 
+  export const userLoginFailAcknowled =
+  (): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
+  async (
+    dispatch: ThunkDispatch<RootState, unknown, AnyAction>
+  ): Promise<void> => {
+
+    localStorage.removeItem("userInfo");
+
+    dispatch({
+      type: USER_LOGIN_FAIL_ACKNOWLEDGED,
+    });
   };
