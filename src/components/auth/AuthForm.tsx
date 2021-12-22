@@ -1,11 +1,11 @@
 import classes from "./AuthForm.module.css";
-import { useState, useRef, useEffect } from "react";
+import { useState, Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/actions/userAction";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/index";
 import { UserState } from "../../store/reducers/userReducer";
-import ErrorModal from '../ui/ErrorModal';
+import ErrorModal from "../ui/ErrorModal";
 
 const AuthForm = () => {
   const navigate = useNavigate();
@@ -19,18 +19,20 @@ const AuthForm = () => {
 
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isLoading] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const emailInputRef = useRef<HTMLInputElement>(null);
-  const passwordInputRef = useRef<HTMLInputElement>(null);
+  // const emailInputRef = useRef<HTMLInputElement>(null);
+  // const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const submitHandler = (event: React.FormEvent) => {
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const enteredEmail = emailInputRef.current?.value;
-    const enteredPassword = passwordInputRef.current?.value;
+    const enteredEmail = email;
+    const enteredPassword = password;
 
     let url: string;
     if (isLogin) {
@@ -41,6 +43,8 @@ const AuthForm = () => {
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAIe4ICqaj0KRGu0PW9oB-LO18Tdp49XsU";
     }
     // reference dispatch
+    setEmail("");
+    setPassword("");
     dispatch(login(url, enteredEmail, enteredPassword));
   };
 
@@ -51,40 +55,48 @@ const AuthForm = () => {
   }, [isLoggedIn, navigate]);
 
   return (
-    <section className={classes.auth}>
-      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      <form>
-        <div className={classes.control}>
-          <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" required ref={emailInputRef} />
-        </div>
-        <div className={classes.control}>
-          <label htmlFor="password">Your Password</label>
-          <input
-            type="password"
-            id="password"
-            required
-            ref={passwordInputRef}
-          />
-        </div>
-        <div className={classes.actions}>
-          {!isLoading && (
-            <button onClick={submitHandler}>
-              {isLogin ? "Login" : "Create Account"}
+    <Fragment>
+      <img src={process.env.PUBLIC_URL + '/CGILogo.jpg'} alt="" />
+      <section className={classes.auth}>
+        <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+        <form onSubmit={submitHandler}>
+          <div className={classes.control}>
+            <label htmlFor="email">Your Email</label>
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              id="email"
+              required
+              value={email}
+            />
+          </div>
+          <div className={classes.control}>
+            <label htmlFor="password">Your Password</label>
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              id="password"
+              required
+              value={password}
+            />
+          </div>
+          <div className={classes.actions}>
+            {!isLoading && (
+              <button>{isLogin ? "Login" : "Create Account"}</button>
+            )}
+            {isLoading && <p>Sending request...</p>}
+            <button
+              type="button"
+              className={classes.toggle}
+              onClick={switchAuthModeHandler}
+            >
+              {isLogin ? "Create new account" : "Login with existing account"}
             </button>
-          )}
-          {isLoading && <p>Sending request...</p>}
-          <button
-            type="button"
-            className={classes.toggle}
-            onClick={switchAuthModeHandler}
-          >
-            {isLogin ? "Create new account" : "Login with existing account"}
-          </button>
-        </div>
-      </form>
-      <ErrorModal />
-    </section>
+          </div>
+        </form>
+        <ErrorModal />
+      </section>
+    </Fragment>
   );
 };
 export default AuthForm;

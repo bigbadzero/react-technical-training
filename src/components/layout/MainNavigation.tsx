@@ -19,8 +19,13 @@ const MainNavigation = () => {
 
   return (
     <Navbar bg="dark" variant="dark">
+       <Navbar.Brand>
+       <img  src={process.env.PUBLIC_URL + '/CGITransparent.png'} height="20" alt="" />
+       </Navbar.Brand>
       <Container>
-        <Navbar.Brand href="#home">React Technical Training</Navbar.Brand>
+        <Navbar.Brand className="mr-left">
+        
+          React Technical Training</Navbar.Brand>
         {isLoggedIn ? (
           <Fragment>
             <Nav className="me-auto">
