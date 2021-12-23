@@ -4,11 +4,14 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGOUT,
   USER_LOGIN_FAIL_ACKNOWLEDGED,
-  USER_DATA_REQUEST
+  UPDATE_QUESTIONS_REQUEST,
+  UPDATE_QUESTIONS_SUCCESS,
+  UPDATE_QUESTIONS_FAIL,
 } from "../constants/userConstants";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../index";
+import { UserState } from "../../store/reducers/userReducer";
 
 export const login =
   (
@@ -30,7 +33,7 @@ export const login =
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email,
-          password: password
+          password: password,
         }),
       });
 
@@ -52,7 +55,7 @@ export const login =
         question3: data.results.question3,
         token: data.results.token,
         timeout: data.results.timeout,
-        email:data.results.email
+        email: data.results.email,
       };
       //pass this data to the reducer in the payload of the action
       dispatch({
@@ -79,14 +82,14 @@ export const logout =
   ): Promise<void> => {
     const userData = {
       firstName: undefined,
-        lastName: undefined,
-        birthday: undefined,
-        question1: undefined,
-        question2: undefined,
-        question3: undefined,
-        token: undefined,
-        timeout: undefined,
-        email:undefined
+      lastName: undefined,
+      birthday: undefined,
+      question1: undefined,
+      question2: undefined,
+      question3: undefined,
+      token: undefined,
+      timeout: undefined,
+      email: undefined,
     };
 
     localStorage.removeItem("userInfo");
@@ -97,12 +100,11 @@ export const logout =
     });
   };
 
-  export const userLoginFailAcknowled =
+export const userLoginFailAcknowled =
   (): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
   async (
     dispatch: ThunkDispatch<RootState, unknown, AnyAction>
   ): Promise<void> => {
-
     localStorage.removeItem("userInfo");
 
     dispatch({
@@ -110,32 +112,87 @@ export const logout =
     });
   };
 
-  // export const submitUserBasicInfo =
-  // (name:string, birthday:Date): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
-  // async (
-  //   dispatch: ThunkDispatch<RootState, unknown, AnyAction>
-  // ): Promise<void> =>{
-  //   try{
-  //     dispatch({
-  //       type: USER_DATA_REQUEST,
-  //     });
+export const updateQuestions =
+  (
+    question: number,
+    answer: number,
+    userState: UserState
+  ): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
+  async (
+    dispatch: ThunkDispatch<RootState, unknown, AnyAction>
+  ): Promise<void> => {
 
-  //     //fetch data from backend
-  //     const response = await fetch("https://react-http-e8d06-default-rtdb.firebaseio.com/users.json", {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         name: name,
-  //         birthday: birthday,
-  //       }),
-  //     });
-  //     const data = await response.json();
-  //     console.log(data);
+    console.log("in update Questions")
+    try {
+      dispatch({
+        type: UPDATE_QUESTIONS_REQUEST,
+      });
 
+      if (question === 1) {
+        userState.userInfo.question1 = answer;
+      }
+      if (question === 2) {
+        userState.userInfo.question2 = answer;
+      }
+      if (question === 3) {
+        userState.userInfo.question3 = answer;
+      }
 
-      
+      //fetch data from backend
+      const response = await fetch(
+        "https://localhost:44372/api/Account/answers",
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName: userState.userInfo.firstName,
+            lastName: userState.userInfo.lastName,
+            birthday: userState.userInfo.birthday,
+            question1: userState.userInfo.question1,
+            question2: userState.userInfo.question2,
+            question3: userState.userInfo.question3,
+            token: userState.userInfo.token,
+            timeout: userState.userInfo.timeout,
+            email: userState.userInfo.email,
+          }),
+        }
+      );
 
-  //   }catch(error){
-
-  //   }
-  // }
+      if (!response.ok) {
+        const data = await response.json();
+        const error = data.error.message;
+        dispatch({
+          type: UPDATE_QUESTIONS_FAIL,
+          payload: error,
+        });
+      }
+      const data = await response.json();
+      console.log(data);
+      const userData = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        birthday: data.birthday,
+        question1: data.question1,
+        question2: data.question2,
+        question3: data.question3,
+        token: data.token,
+        timeout: data.timeout,
+        email: data.email,
+      };
+      //pass this data to the reducer in the payload of the action
+      dispatch({
+        type: UPDATE_QUESTIONS_SUCCESS,
+        payload: userData,
+      });
+      localStorage.setItem("userInfo", JSON.stringify(userData));
+    } catch (error) {
+      // User login fail
+      //   dispatch({
+      //     type: USER_LOGIN_FAIL,
+      //     payload:
+      //       error.response && error.response.data.message
+      //         ? error.response.data.message
+      //         : error.message,
+      //   });
+    }
+  };
