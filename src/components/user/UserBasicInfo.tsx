@@ -1,13 +1,15 @@
 import { Form, Button } from "react-bootstrap";
 import { RootState } from "../../store/index";
 import { UserState } from "../../store/reducers/userReducer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+// import {submitUserBasicInfo} from '../../store/actions/userAction'
 
 
 const UserBasicInfo = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userLogin = useSelector<RootState, UserState>(
     (state) => state.userLogin
   );
