@@ -10,13 +10,13 @@ const Home = () => {
     (state) => state.userLogin
   );
   const { userInfo } = userLogin;
-  const isLoggedIn = userInfo ? userInfo.isLoggedIn : null;
+  const token = userInfo ? userInfo.token : null;
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!token) {
       navigate("/login");
     }
-  }, [navigate, isLoggedIn]);
+  }, [navigate, token]);
 
   return <h1>Home Page</h1>;
 };

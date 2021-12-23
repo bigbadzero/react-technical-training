@@ -20,7 +20,7 @@ const AuthForm = () => {
     (state) => state.userLogin
   );
   const { userInfo } = userLogin;
-  const isLoggedIn = userInfo ? userInfo.isLoggedIn : null;
+  const token = userInfo ? userInfo.token : null;
   const appLoading = userLogin.loading;
 
   const switchAuthModeHandler = () => {
@@ -35,22 +35,24 @@ const AuthForm = () => {
     let url: string;
     if (isLogin) {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAIe4ICqaj0KRGu0PW9oB-LO18Tdp49XsU";
+        "https://localhost:44372/api/Account/login";
     } else {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAIe4ICqaj0KRGu0PW9oB-LO18Tdp49XsU";
+        "https://localhost:44372/api/Account/register";
     }
     // reference dispatch
     setEmail("");
     setPassword("");
-    dispatch(login(url, enteredEmail, enteredPassword));
+    if(isLogin){
+      dispatch(login(url, enteredEmail, enteredPassword));
+    }
   };
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (token) {
       navigate("/");
     }
-  }, [isLoggedIn, navigate]);
+  }, [token, navigate]);
 
   return (
     <Fragment>

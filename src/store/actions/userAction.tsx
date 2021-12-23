@@ -9,7 +9,6 @@ import {
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../index";
-import IUserData from '../../models/IUserData';
 
 export const login =
   (
@@ -31,8 +30,7 @@ export const login =
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email,
-          password: password,
-          returnSecureToken: true,
+          password: password
         }),
       });
 
@@ -44,53 +42,24 @@ export const login =
           payload: error,
         });
       }
-
       const data = await response.json();
-      console.log("first response success")
-      const response2 = await fetch("https://react-http-e8d06-default-rtdb.firebaseio.com/users.json");
-
-      if(!response2.ok){
-        console.log("response 2 not ok")
-        const data2 = await response.json();
-        const error2 = data2.error.message;
-        dispatch({
-          type: USER_LOGIN_FAIL,
-          payload: error2,
-        });
-      }
-      const data2 = await response2.json();
-      console.log("second response successful");
-      console.log(data2);
-      try{
-        const ourUser = data2.filter((user:any) => user.email !== "testreact@gmail.com");
-        console.log(ourUser);
-      }catch(error){
-        console.log("our user fail");
-      }
-      
-
-      
-
-
       const userData = {
-        isLoggedIn: true,
-        idToken: data.idToken,
-        email: data.email,
-        refreshToken: data.refreshToken,
-        expiresIn: data.expiresIn,
-        localId: data.localId,
-        registered: data.registered,
+        firstName: data.results.firstName,
+        lastName: data.results.lastName,
+        birthday: data.results.birthday,
+        question1: data.results.question1,
+        question2: data.results.question2,
+        question3: data.results.question3,
+        token: data.results.token,
+        timeout: data.results.timeout,
+        email:data.results.email
       };
-      
-
       //pass this data to the reducer in the payload of the action
       dispatch({
         type: USER_LOGIN_SUCCESS,
         payload: userData,
       });
       localStorage.setItem("userInfo", JSON.stringify(userData));
-
-      
     } catch (error) {
       // User login fail
       //   dispatch({
@@ -109,13 +78,15 @@ export const logout =
     dispatch: ThunkDispatch<RootState, unknown, AnyAction>
   ): Promise<void> => {
     const userData = {
-      isLoggedIn: false,
-      idToken: undefined,
-      email: undefined,
-      refreshToken: undefined,
-      expiresIn: undefined,
-      localId: undefined,
-      registered: undefined,
+      firstName: undefined,
+        lastName: undefined,
+        birthday: undefined,
+        question1: undefined,
+        question2: undefined,
+        question3: undefined,
+        token: undefined,
+        timeout: undefined,
+        email:undefined
     };
 
     localStorage.removeItem("userInfo");

@@ -10,12 +10,8 @@ const userInfo = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo")!)
   : undefined;
 
-const questionInfo = localStorage.getItem("questionInfo")
- ? JSON.parse(localStorage.getItem("questionInfo")!)
- : undefined;
-
 const initialState = {
-  userLogin: { userInfo, questionInfo },
+  userLogin: { userInfo },
 } as {};
 
 const middleware = [thunk];

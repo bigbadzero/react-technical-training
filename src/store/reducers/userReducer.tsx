@@ -13,18 +13,16 @@ export interface UserState {
   loading?: boolean;
   error?: string;
   userInfo: {
-    isLoggedIn?: boolean;
-    idToken?: string;
+    firstName?: string;
+    lastName?: string;
+    birthday?: Date;
+    question1?: number;
+    question2?: number;
+    question3?: number;
+    token?: string;
+    timeout?: number;
     email?: string;
-    refreshToken?: string;
-    expiresIn?: string;
-    localId?: string;
-    registered?: boolean;
   };
-  questionInfo:{
-    name?: string;
-    birthday?:Date;
-  }
 }
 interface Action {
   type: string;
@@ -32,7 +30,7 @@ interface Action {
 }
 
 export const userLoginReducer = (
-  state: UserState = { userInfo: {}, questionInfo:{} },
+  state: UserState = { userInfo: {} },
   action: Action
 ) => {
   switch (action.type) {

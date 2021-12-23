@@ -11,9 +11,8 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<UserBasicInfoPage />}  />
+        <Route path="/" element={<QuestionsPage />}  />
         <Route path="/login" element={<AuthPage />} />
-        <Route path="/questions" element={<QuestionsPage />} />
       </Routes>
     </Layout>
   );

@@ -13,20 +13,9 @@ const UserBasicInfo = () => {
   const userLogin = useSelector<RootState, UserState>(
     (state) => state.userLogin
   );
-  const { userInfo, questionInfo } = userLogin;
-  const isLoggedIn = userInfo ? userInfo.isLoggedIn : null;
-  const name = questionInfo ? questionInfo.name : null;
-  const birthday = questionInfo ? questionInfo.birthday : null;
   
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
-    if(name && birthday){
-        navigate("/questions");
-    }
-  }, [navigate, isLoggedIn, name, birthday]);
+  
   return (
     <Fragment>
       <Form>

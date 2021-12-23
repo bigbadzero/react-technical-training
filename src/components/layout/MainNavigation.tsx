@@ -11,7 +11,7 @@ const MainNavigation = () => {
     (state) => state.userLogin
   );
   const { userInfo } = userLogin;
-  const isLoggedIn = userInfo ? userInfo.isLoggedIn : null;
+  const token = userInfo ? userInfo.token : null;
 
   const logoutHandler = () =>{
     dispatch(logout());
@@ -26,7 +26,7 @@ const MainNavigation = () => {
         <Navbar.Brand className="mr-left">
         
           React Technical Training</Navbar.Brand>
-        {isLoggedIn ? (
+        {token ? (
           <Fragment>
             <Nav className="me-auto">
               <Nav.Link href="">Home</Nav.Link>
