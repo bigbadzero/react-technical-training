@@ -31,20 +31,20 @@ const Questions = () => {
     if (!token) {
       navigate("/login");
     }
-  }, [token, navigate]);
+  }, [token, navigate,]);
 
   return (
     <Fragment>
-      {!answer1 && !answer2 && !answer3 ? (
+      {(answer1 === null ) ? (
         <Question1 submitAnswer={submitAnswerHandler} />
       ) : null}
-      {answer1 && !answer2 && !answer3 ? (
+      {(answer1 !==null) && (answer2 === null)  ? (
         <Question2 submitAnswer={submitAnswerHandler} />
       ) : null}
-      {answer1 && answer2 && !answer3 ? (
+      {(answer1 !==null) && (answer2 !==null) && (answer3 === null) ? (
         <Question3 submitAnswer={submitAnswerHandler} />
       ) : null}
-      {answer1 && answer2 && answer3 ? <h1>All Questions Answered</h1> : null}
+      {(answer1 !== null) && (answer2 !== null) && (answer3 !== null) ? <h1>All Questions Answered</h1> : null}
     </Fragment>
   );
 };

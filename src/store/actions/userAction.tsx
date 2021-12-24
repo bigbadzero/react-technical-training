@@ -122,7 +122,6 @@ export const updateQuestions =
     dispatch: ThunkDispatch<RootState, unknown, AnyAction>
   ): Promise<void> => {
 
-    console.log("in update Questions")
     try {
       dispatch({
         type: UPDATE_QUESTIONS_REQUEST,
@@ -167,7 +166,6 @@ export const updateQuestions =
         });
       }
       const data = await response.json();
-      console.log(data);
       const userData = {
         firstName: data.firstName,
         lastName: data.lastName,
