@@ -8,6 +8,7 @@ import Question2 from "./Question2";
 import Question3 from "./Question3";
 import { Fragment } from "react";
 import { updateQuestions } from "../../store/actions/userAction";
+import QuestionResults from './QuestionResults';
 
 const Questions = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const Questions = () => {
       {(answer1 !==null) && (answer2 !==null) && (answer3 === null) ? (
         <Question3 submitAnswer={submitAnswerHandler} />
       ) : null}
-      {(answer1 !== null) && (answer2 !== null) && (answer3 !== null) ? <h1>All Questions Answered</h1> : null}
+      {(answer1 !== null) && (answer2 !== null) && (answer3 !== null) ? <QuestionResults /> : null}
     </Fragment>
   );
 };

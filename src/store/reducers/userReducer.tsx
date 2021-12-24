@@ -22,6 +22,7 @@ export interface UserState {
     token?: string;
     timeout?: number;
     email?: string;
+    completionDate?: Date;
   };
 }
 interface Action {

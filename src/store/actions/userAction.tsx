@@ -176,6 +176,7 @@ export const updateQuestions =
         token: data.token,
         timeout: data.timeout,
         email: data.email,
+        completionDate: data.completionDate,
       };
       //pass this data to the reducer in the payload of the action
       dispatch({
