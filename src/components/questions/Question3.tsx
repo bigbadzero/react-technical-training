@@ -20,13 +20,13 @@ const Question3: React.FC<{
       <Card.Title>Can you touch your toes?</Card.Title>
       <Card.Body>
         <Button
-          onClick={props.submitAnswer(question, -1, userLogin)}
+          onClick={props.submitAnswer(question, 1, userLogin)}
           variant="danger"
         >
           No
         </Button>
         <Button
-          onClick={props.submitAnswer(question, 1, userLogin)}
+          onClick={props.submitAnswer(question, -1, userLogin)}
           variant="success"
         >
           Yes
