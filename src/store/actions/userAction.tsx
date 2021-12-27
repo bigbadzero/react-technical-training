@@ -14,9 +14,9 @@ import { AnyAction } from "redux";
 import { RootState } from "../index";
 import { UserState } from "../../store/reducers/userReducer";
 
+
 export const register =
   (
-    url: string,
     email: string,
     password: string,
     firstName: string,
@@ -32,7 +32,7 @@ export const register =
       });
 
       //fetch data from backend
-      const response = await fetch(url, {
+      const response = await fetch("https://localhost:44372/api/Account/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -47,12 +47,13 @@ export const register =
       if (!response.ok) {
         const data = await response.json();
         const error = data.error.message;
+        console.log(error);
         dispatch({
           type: USER_LOGIN_FAIL,
           payload: error,
         });
       }
-      const data = await response.json();
+
       //pass this data to the reducer in the payload of the action
       dispatch({
         type: USER_REGISTER_SUCCESS,

@@ -54,9 +54,7 @@ const LoginForm: React.FC<{ isLogin: boolean; authModeHandler: () => void }> = (
               className={classes.toggle}
               onClick={props.authModeHandler}
             >
-              {props.isLogin
-                ? "Create new account"
-                : "Login with existing account"}
+              Create new account
             </button>
           </div>
         </form>

@@ -1,18 +1,19 @@
-import classes from "./AuthForm.module.css";
 import { useState, Fragment, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/actions/userAction";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/index";
 import { UserState } from "../../store/reducers/userReducer";
 import ErrorModal from "../ui/ErrorModal";
 import LoadingSpinner from "../ui/LoadingSpinner";
-import LoginForm from './LoginForm'
+import LoginForm from "./LoginForm";
+import RegistrationForm from "./RegistrationForm";
 
 const AuthForm = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState<boolean>(true);
-  const userLogin = useSelector<RootState, UserState>((state) => state.userLogin);
+  const userLogin = useSelector<RootState, UserState>(
+    (state) => state.userLogin
+  );
   const { userInfo } = userLogin;
   const token = userInfo ? userInfo.token : null;
   const appLoading = userLogin.loading;
@@ -29,11 +30,11 @@ const AuthForm = () => {
 
   return (
     <Fragment>
-      {!appLoading ? (
-        <LoginForm isLogin={isLogin} authModeHandler={switchAuthModeHandler}/>
-      ) : (
-        <LoadingSpinner />
-      )}
+      {appLoading && <LoadingSpinner />}
+      {(!appLoading && isLogin) && <LoginForm isLogin={isLogin} authModeHandler={switchAuthModeHandler} />}
+      {(!appLoading && !isLogin) && <RegistrationForm isLogin={isLogin} authModeHandler={switchAuthModeHandler} />}
+
+      
       <ErrorModal />
     </Fragment>
   );
