@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/index";
 import { UserState } from "../../store/reducers/userReducer";
 import ErrorModal from "../ui/ErrorModal";
+import RegistrationCompleteModal from '../ui/RegistrationCompleteModal';
 import LoadingSpinner from "../ui/LoadingSpinner";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
@@ -33,9 +34,8 @@ const AuthForm = () => {
       {appLoading && <LoadingSpinner />}
       {(!appLoading && isLogin) && <LoginForm isLogin={isLogin} authModeHandler={switchAuthModeHandler} />}
       {(!appLoading && !isLogin) && <RegistrationForm isLogin={isLogin} authModeHandler={switchAuthModeHandler} />}
-
-      
       <ErrorModal />
+      <RegistrationCompleteModal />
     </Fragment>
   );
 };

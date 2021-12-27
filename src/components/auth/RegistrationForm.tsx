@@ -33,7 +33,7 @@ const RegistrationForm: React.FC<{
     setBirthday(new Date());
 
     dispatch(register(enteredEmail, enteredPassword, enteredFirstName, enteredLastName, enteredBirthday));
-    navigate('/');
+    props.authModeHandler();
   };
 
   return(

@@ -8,6 +8,7 @@ import {
   UPDATE_QUESTIONS_SUCCESS,
   UPDATE_QUESTIONS_FAIL,
   USER_REGISTER_SUCCESS,
+  USER_REGISTER_SUCCESS_ACKOWLEDGED
 } from "../constants/userConstants";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
@@ -69,6 +70,18 @@ export const register =
       //         : error.message,
       //   });
     }
+  };
+
+
+  export const registrationAcknowled =
+  (): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
+  async (
+    dispatch: ThunkDispatch<RootState, unknown, AnyAction>
+  ): Promise<void> => {
+
+    dispatch({
+      type: USER_REGISTER_SUCCESS_ACKOWLEDGED,
+    });
   };
 
 
