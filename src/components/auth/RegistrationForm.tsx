@@ -3,6 +3,7 @@ import { useState, Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../store/actions/userAction";
 import Datepicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css"
 
 
 const RegistrationForm: React.FC<{
