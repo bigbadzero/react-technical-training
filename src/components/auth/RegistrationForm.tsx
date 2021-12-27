@@ -3,14 +3,12 @@ import { useState, Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../store/actions/userAction";
 import Datepicker from 'react-datepicker';
-import { useNavigate } from "react-router-dom";
 
 
 const RegistrationForm: React.FC<{
   isLogin: boolean;
   authModeHandler: () => void;
 }> = (props) => {
-    const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");

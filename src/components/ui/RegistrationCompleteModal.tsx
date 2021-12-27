@@ -8,7 +8,6 @@ import { registrationAcknowled } from "../../store/actions/userAction";
 const RegistrationCompleteModal = () => {
     const dispatch = useDispatch();
     const [show, setShow] = useState<boolean>(false);
-  
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const userLogin = useSelector<RootState, UserState>(
