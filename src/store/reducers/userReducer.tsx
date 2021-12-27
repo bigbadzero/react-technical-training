@@ -6,12 +6,16 @@ import {
   USER_LOGIN_FAIL_ACKNOWLEDGED,
   UPDATE_QUESTIONS_REQUEST,
   UPDATE_QUESTIONS_SUCCESS,
-  UPDATE_QUESTIONS_FAIL
+  UPDATE_QUESTIONS_FAIL,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL
 } from "../constants/userConstants";
 
 export interface UserState {
   loading?: boolean;
   error?: string;
+  message?: string;
   userInfo: {
     firstName?: string;
     lastName?: string;
@@ -51,6 +55,12 @@ export const userLoginReducer = (
         return {loading: false, userInfo: action.payload };
       case UPDATE_QUESTIONS_FAIL:
         return {loading: false, error: action.payload};
+      case USER_REGISTER_REQUEST:
+        return {loading: true,};
+      case USER_REGISTER_SUCCESS:
+        return {loading:false};
+      case USER_REGISTER_FAIL:
+        return { loading: false, error: action.payload};
     default:
       return state;
   }

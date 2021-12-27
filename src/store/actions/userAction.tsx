@@ -7,15 +7,72 @@ import {
   UPDATE_QUESTIONS_REQUEST,
   UPDATE_QUESTIONS_SUCCESS,
   UPDATE_QUESTIONS_FAIL,
+  USER_REGISTER_SUCCESS,
 } from "../constants/userConstants";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../index";
 import { UserState } from "../../store/reducers/userReducer";
 
-export const login =
+export const register =
   (
     url: string,
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    birthday: Date,
+  ): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
+  async (
+    dispatch: ThunkDispatch<RootState, unknown, AnyAction>
+  ): Promise<void> => {
+    try {
+      dispatch({
+        type: USER_LOGIN_REQUEST,
+      });
+
+      //fetch data from backend
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          firstName: firstName,
+          lastName: lastName,
+          birthday: birthday
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        const error = data.error.message;
+        dispatch({
+          type: USER_LOGIN_FAIL,
+          payload: error,
+        });
+      }
+      const data = await response.json();
+      //pass this data to the reducer in the payload of the action
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+      });
+
+    } catch (error) {
+      // User login fail
+      //   dispatch({
+      //     type: USER_LOGIN_FAIL,
+      //     payload:
+      //       error.response && error.response.data.message
+      //         ? error.response.data.message
+      //         : error.message,
+      //   });
+    }
+  };
+
+
+export const login =
+  (
     email: string | undefined,
     password: string | undefined
   ): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
@@ -28,7 +85,7 @@ export const login =
       });
 
       //fetch data from backend
-      const response = await fetch(url, {
+      const response = await fetch("https://localhost:44372/api/Account/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
