@@ -31,11 +31,11 @@ const MainNavigation = () => {
         {token ? (
           <Fragment>
             <Nav className="me-auto">
-              <Nav.Link >
-              <NavLink className={(navData) => navData.isActive ? classes.navitemactive : classes.navitem} to="/">Quiz</NavLink>
+              <Nav.Link>
+                <NavLink className={(navData) => navData.isActive ? classes.navitemactive : classes.navitem} to="/">Quiz</NavLink>
               </Nav.Link>
-              <Nav.Link >
-              <NavLink className={(navData) => navData.isActive ? classes.navitemactive : classes.navitem} to="/results">All Results</NavLink>
+              <Nav.Link>
+                <NavLink className={(navData) => navData.isActive ? classes.navitemactive : classes.navitem} to="/results">All Results</NavLink>
               </Nav.Link>
             </Nav>
             <Nav className="mr-right">
