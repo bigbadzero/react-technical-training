@@ -29,9 +29,8 @@ const MainNavigation = () => {
         {token ? (
           <Fragment>
             <Nav className="me-auto">
-              <Nav.Link href="">Home</Nav.Link>
-              <Nav.Link href="">Features</Nav.Link>
-              <Nav.Link href="">Pricing</Nav.Link>
+              <Nav.Link href="/">Quiz</Nav.Link>
+              <Nav.Link href="/results">All Results</Nav.Link>
             </Nav>
             <Nav className="mr-right">
               <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>

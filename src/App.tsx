@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AuthPage from "./pages/AuthPage";
 import QuestionsPage from './pages/QuestionsPage';
-import UserBasicInfoPage from './pages/UserBasicInfoPage';
+import AllResultsPage from './pages/AllResultsPage';
 
 function App() {
 
@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<QuestionsPage />}  />
         <Route path="/login" element={<AuthPage />} />
+        <Route path='/results' element={<AllResultsPage />} />
       </Routes>
     </Layout>
   );

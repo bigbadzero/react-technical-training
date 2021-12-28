@@ -127,6 +127,7 @@ export const login =
         token: data.results.token,
         timeout: data.results.timeout,
         email: data.results.email,
+        completionDate: data.results.completionDate,
       };
       //pass this data to the reducer in the payload of the action
       dispatch({
