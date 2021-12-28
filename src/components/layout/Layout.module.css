@@ -4,4 +4,14 @@
     max-width: 40rem;
     text-align: center;
   }
+  .navitemactive{
+    color:#E31937;
+    text-decoration:underline;
+  }
 
+  .navitem{
+    color:white;
+    text-decoration: none;
+  }
+  
+  

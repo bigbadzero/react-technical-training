@@ -2,9 +2,20 @@ import { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import IUserData from "../../models/IUserData";
 import TableData from "./TableData";
+import { RootState } from "../../store/index";
+import { UserState } from "../../store/reducers/userReducer";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const AllResults = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState<IUserData[]>([]);
+
+  const userLogin = useSelector<RootState, UserState>(
+    (state) => state.userLogin
+  );
+  const { userInfo } = userLogin;
+  const token = userInfo ? userInfo.token : null;
 
   const getResponse = async () => {
     const response = await fetch("https://localhost:44372/api/Account/GetUsers")
@@ -17,8 +28,13 @@ const AllResults = () => {
   };
 
   useEffect(() => {
-    getResponse();
-  }, []);
+    if (!token) {
+      navigate("/login");
+    }else{
+        getResponse();
+    }
+    
+  }, [token, navigate]);
 
   return (
     <Table striped bordered hover variant="dark">
@@ -33,7 +49,7 @@ const AllResults = () => {
       </thead>
       <tbody>
         {users.map((user) => (
-          <TableData user={user}/>
+          <TableData user={user} />
         ))}
       </tbody>
     </Table>

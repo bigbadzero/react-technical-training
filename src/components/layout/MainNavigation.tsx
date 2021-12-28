@@ -4,6 +4,8 @@ import { RootState } from "../../store/index";
 import { UserState } from "../../store/reducers/userReducer";
 import { Fragment } from "react";
 import {logout} from '../../store/actions/userAction';
+import {NavLink} from 'react-router-dom';
+import classes from './Layout.module.css';
 
 const MainNavigation = () => {
   const dispatch = useDispatch();
@@ -29,8 +31,12 @@ const MainNavigation = () => {
         {token ? (
           <Fragment>
             <Nav className="me-auto">
-              <Nav.Link href="/">Quiz</Nav.Link>
-              <Nav.Link href="/results">All Results</Nav.Link>
+              <Nav.Link >
+              <NavLink className={(navData) => navData.isActive ? classes.navitemactive : classes.navitem} to="/">Quiz</NavLink>
+              </Nav.Link>
+              <Nav.Link >
+              <NavLink className={(navData) => navData.isActive ? classes.navitemactive : classes.navitem} to="/results">All Results</NavLink>
+              </Nav.Link>
             </Nav>
             <Nav className="mr-right">
               <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
