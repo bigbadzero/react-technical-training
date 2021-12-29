@@ -4,6 +4,7 @@ import { RootState } from "../../store/index";
 import { UserState } from "../../store/reducers/userReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { registrationAcknowled } from "../../store/actions/userAction";
+import ReactDom from 'react-dom';
 
 const RegistrationCompleteModal = () => {
     const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const RegistrationCompleteModal = () => {
     },[registered])
   
   
-    return (
+    return ReactDom.createPortal(
       <Modal
         show={show}
         onHide={acknowledgeErrorHandler}
@@ -46,7 +47,7 @@ const RegistrationCompleteModal = () => {
         <Modal.Footer>
           <Button onClick={acknowledgeErrorHandler} variant="primary">Understood</Button>
         </Modal.Footer>
-      </Modal>
+      </Modal>, document.getElementById("errorModal-root") as HTMLElement
     );
 }
 export default RegistrationCompleteModal;

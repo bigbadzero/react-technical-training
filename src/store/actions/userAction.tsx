@@ -8,7 +8,8 @@ import {
   UPDATE_QUESTIONS_SUCCESS,
   UPDATE_QUESTIONS_FAIL,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_SUCCESS_ACKOWLEDGED
+  USER_REGISTER_SUCCESS_ACKOWLEDGED,
+  USER_REGISTER_FAIL
 } from "../constants/userConstants";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
@@ -50,7 +51,7 @@ export const register =
         const error = data.error.message;
         console.log(error);
         dispatch({
-          type: USER_LOGIN_FAIL,
+          type: USER_REGISTER_FAIL,
           payload: error,
         });
       }
@@ -61,14 +62,12 @@ export const register =
       });
 
     } catch (error) {
-      // User login fail
-      //   dispatch({
-      //     type: USER_LOGIN_FAIL,
-      //     payload:
-      //       error.response && error.response.data.message
-      //         ? error.response.data.message
-      //         : error.message,
-      //   });
+      const errorMessage:string = "an unknown error occured"
+      // User REGISTER fail
+        dispatch({
+          type: USER_LOGIN_FAIL,
+          payload: errorMessage
+        });
     }
   };
 
@@ -110,6 +109,7 @@ export const login =
 
       if (!response.ok) {
         const data = await response.json();
+        console.log(data);
         const error = data.error.message;
         dispatch({
           type: USER_LOGIN_FAIL,
@@ -136,14 +136,13 @@ export const login =
       });
       localStorage.setItem("userInfo", JSON.stringify(userData));
     } catch (error) {
+      console.log(error);
+      const errorMessage:string = "an unknown error occurred: " 
       // User login fail
-      //   dispatch({
-      //     type: USER_LOGIN_FAIL,
-      //     payload:
-      //       error.response && error.response.data.message
-      //         ? error.response.data.message
-      //         : error.message,
-      //   });
+        dispatch({
+          type: USER_LOGIN_FAIL,
+          payload: errorMessage
+        });
     }
   };
 
@@ -258,12 +257,10 @@ export const updateQuestions =
       localStorage.setItem("userInfo", JSON.stringify(userData));
     } catch (error) {
       // User login fail
-      //   dispatch({
-      //     type: USER_LOGIN_FAIL,
-      //     payload:
-      //       error.response && error.response.data.message
-      //         ? error.response.data.message
-      //         : error.message,
-      //   });
+      const errorMessage:string = "an unknown error occurred"
+        dispatch({
+          type: UPDATE_QUESTIONS_FAIL,
+          payload: errorMessage
+        });
     }
   };
