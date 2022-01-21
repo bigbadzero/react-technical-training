@@ -47,7 +47,7 @@ const RegistrationCompleteModal = () => {
         <Modal.Footer>
           <Button onClick={acknowledgeErrorHandler} variant="primary">Understood</Button>
         </Modal.Footer>
-      </Modal>, document.getElementById("errorModal-root") as HTMLElement
+      </Modal>, document.getElementById("registrationCompleteModal-root") as HTMLElement
     );
 }
 export default RegistrationCompleteModal;

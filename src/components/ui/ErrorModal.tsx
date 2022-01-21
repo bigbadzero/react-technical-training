@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userLoginFailAcknowled } from "../../store/actions/userAction";
 import ReactDom from 'react-dom';
 
-const ErrorModal = () => {
+const ErrorModal: React.FC<{container:HTMLElement | null}> = (props) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState<boolean>(false);
 
@@ -31,6 +31,9 @@ const ErrorModal = () => {
       }
   },[error])
 
+  if(!show){
+    return null;
+  }
 
   return ReactDom.createPortal(
     <Modal
@@ -48,7 +51,7 @@ const ErrorModal = () => {
       <Modal.Footer>
         <Button onClick={acknowledgeErrorHandler} variant="primary">Understood</Button>
       </Modal.Footer>
-    </Modal>, document.getElementById("errorModal-root") as HTMLElement
+    </Modal>, props.container ?? document.getElementById("errorModal-root") as HTMLElement
   );
 };
 

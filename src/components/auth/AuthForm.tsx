@@ -9,7 +9,7 @@ import LoadingSpinner from "../ui/LoadingSpinner";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 
-const AuthForm = () => {
+const AuthForm:React.FC<{errorContainer: HTMLElement | null}> = (props) => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const userLogin = useSelector<RootState, UserState>(
@@ -34,7 +34,7 @@ const AuthForm = () => {
       {appLoading && <LoadingSpinner />}
       {(!appLoading && isLogin) && <LoginForm isLogin={isLogin} authModeHandler={switchAuthModeHandler} />}
       {(!appLoading && !isLogin) && <RegistrationForm isLogin={isLogin} authModeHandler={switchAuthModeHandler} />}
-      <ErrorModal />
+      <ErrorModal container={props.errorContainer}/>
       <RegistrationCompleteModal />
     </Fragment>
   );
