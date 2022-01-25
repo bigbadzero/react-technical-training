@@ -1,7 +1,6 @@
 import "./App.css";
 import Layout from "./components/layout/Layout";
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import AuthPage from "./pages/AuthPage";
 import QuestionsPage from './pages/QuestionsPage';
 import AllResultsPage from './pages/AllResultsPage';

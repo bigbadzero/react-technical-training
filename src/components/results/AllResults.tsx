@@ -66,7 +66,7 @@ const AllResults = () => {
             <th>Last Name</th>
             <th>Birthday</th>
             <th>Completion Date</th>
-            <th>Bodyh Age</th>
+            <th>Body Age</th>
           </tr>
         </thead>
         <tbody>
