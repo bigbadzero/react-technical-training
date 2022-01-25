@@ -6,6 +6,10 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { userLoginReducer } from "../../store/reducers/userReducer";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+import UserEvent from '@testing-library/user-event';
+import userEvent from "@testing-library/user-event";
+;
+
 
 export function createTestStore(
   answer1: number | null,
@@ -95,6 +99,63 @@ describe("Questions", () => {
     expect(question1).not.toBeInTheDocument();
   });
 
+  test("does not render question 1 after the never button is clicked on question 1", () => {
+    window.fetch = jest.fn();
+    render(
+      <Provider store={createTestStore(null, null, null)}>
+        <BrowserRouter>
+          <Questions />
+        </BrowserRouter>
+      </Provider>
+    );
+    
+    const neverButton = screen.getByText(/never/i);
+    userEvent.click(neverButton);
+    const question1 = screen.queryByText(/Do you workout weekly?/i);
+    setTimeout(() => {
+      expect(question1).not.toBeInTheDocument();
+    }, 10000)
+    
+  });
+
+  test("does not render question 1 after the sometimes button is clicked on question 1", () => {
+    window.fetch = jest.fn();
+    render(
+      <Provider store={createTestStore(null, null, null)}>
+        <BrowserRouter>
+          <Questions />
+        </BrowserRouter>
+      </Provider>
+    );
+    
+    const sometimesButton = screen.getByText(/sometimes/i);
+    userEvent.click(sometimesButton);
+    const question1 = screen.queryByText(/Do you workout weekly?/i);
+    setTimeout(() => {
+      expect(question1).not.toBeInTheDocument();
+    }, 10000)
+    
+  });
+
+  test("does not render question 1 after the always button is clicked on question 1", () => {
+    window.fetch = jest.fn();
+    render(
+      <Provider store={createTestStore(null, null, null)}>
+        <BrowserRouter>
+          <Questions />
+        </BrowserRouter>
+      </Provider>
+    );
+    
+    const alwaysButton = screen.getByText(/always/i);
+    userEvent.click(alwaysButton);
+    const question1 = screen.queryByText(/Do you workout weekly?/i);
+    setTimeout(() => {
+      expect(question1).not.toBeInTheDocument();
+    }, 10000)
+    
+  });
+
   //question2 tests
   test("renders Question 2 if question1 is not null question2 is null and question3 is null", () => {
     window.fetch = jest.fn();
@@ -138,6 +199,64 @@ describe("Questions", () => {
     expect(question1).not.toBeInTheDocument();
   });
 
+
+  test("does not render question 2 after the never button is clicked on question 2", () => {
+    window.fetch = jest.fn();
+    render(
+      <Provider store={createTestStore(1, null, null)}>
+        <BrowserRouter>
+          <Questions />
+        </BrowserRouter>
+      </Provider>
+    );
+    
+    const neverButton = screen.getByText(/never/i);
+    userEvent.click(neverButton);
+    const question2 = screen.queryByText(/Do you eat junk food?/i);
+    setTimeout(() => {
+      expect(question2).not.toBeInTheDocument();
+    }, 10000)
+    
+  });
+
+  test("does not render question 2 after the sometimes button is clicked on question 2", () => {
+    window.fetch = jest.fn();
+    render(
+      <Provider store={createTestStore(1, null, null)}>
+        <BrowserRouter>
+          <Questions />
+        </BrowserRouter>
+      </Provider>
+    );
+    
+    const sometimesButton = screen.getByText(/sometimes/i);
+    userEvent.click(sometimesButton);
+    const question2 = screen.queryByText(/Do you eat junk food?/i);
+    setTimeout(() => {
+      expect(question2).not.toBeInTheDocument();
+    }, 10000)
+    
+  });
+
+  test("does not render question 2 after the always button is clicked on question 2", () => {
+    window.fetch = jest.fn();
+    render(
+      <Provider store={createTestStore(1, null, null)}>
+        <BrowserRouter>
+          <Questions />
+        </BrowserRouter>
+      </Provider>
+    );
+    
+    const alwaysButton = screen.getByText(/always/i);
+    userEvent.click(alwaysButton);
+    const question2 = screen.queryByText(/Do you eat junk food?/i);
+    setTimeout(() => {
+      expect(question2).not.toBeInTheDocument();
+    }, 10000)
+    
+  });
+
   //question3 tests
   test("renders Question 3 if question1 is not null question2 is not null and question3 is null", () => {
     window.fetch = jest.fn();
@@ -165,6 +284,44 @@ describe("Questions", () => {
 
     const question1 = screen.queryByText(/Can you touch your toes?/i);
     expect(question1).not.toBeInTheDocument();
+  });
+
+  test("does not render question 3 after the no button is clicked on question 3", () => {
+    window.fetch = jest.fn();
+    render(
+      <Provider store={createTestStore(1, 1, null)}>
+        <BrowserRouter>
+          <Questions />
+        </BrowserRouter>
+      </Provider>
+    );
+    
+    const noButton = screen.getByText(/No/i);
+    userEvent.click(noButton);
+    const question3 = screen.queryByText(/Can you touch your toes?/i);
+    setTimeout(() => {
+      expect(question3).not.toBeInTheDocument();
+    }, 10000)
+    
+  });
+
+  test("does not render question 3 after the Yes button is clicked on question 3", () => {
+    window.fetch = jest.fn();
+    render(
+      <Provider store={createTestStore(1, 1, null)}>
+        <BrowserRouter>
+          <Questions />
+        </BrowserRouter>
+      </Provider>
+    );
+    
+    const noButton = screen.getByText(/Yes/i);
+    userEvent.click(noButton);
+    const question3 = screen.queryByText(/Can you touch your toes?/i);
+    setTimeout(() => {
+      expect(question3).not.toBeInTheDocument();
+    }, 10000)
+    
   });
 
   //userResults Tests
