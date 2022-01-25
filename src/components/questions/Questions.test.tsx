@@ -2,11 +2,7 @@ import { render, screen } from "@testing-library/react";
 import Questions from "./Questions";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import {
-  createStore,
-  combineReducers,
-  applyMiddleware,
-} from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { userLoginReducer } from "../../store/reducers/userReducer";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -56,7 +52,7 @@ describe("Questions", () => {
     expect(question1).toBeInTheDocument();
   });
 
-//question1 tests
+  //question1 tests
   test("renders Question 1 if question 1 and 3 is null but question 2 is not", () => {
     window.fetch = jest.fn();
     render(
@@ -99,7 +95,7 @@ describe("Questions", () => {
     expect(question1).not.toBeInTheDocument();
   });
 
-//question2 tests
+  //question2 tests
   test("renders Question 2 if question1 is not null question2 is null and question3 is null", () => {
     window.fetch = jest.fn();
     render(
@@ -182,16 +178,16 @@ describe("Questions", () => {
       </Provider>
     );
 
-        const firstName = screen.getByText(/First Name/i);
-        const lastName = screen.getByText(/Last Name/i);
-        const birthday = screen.getByText(/Birthday/i)
-        const completionDate = screen.getByText(/Completion Date/i);
-        const bodyAge = screen.getByText(/Body Age/i)
-        expect(firstName).toBeInTheDocument();
-        expect(lastName).toBeInTheDocument();
-        expect(birthday).toBeInTheDocument();
-        expect(completionDate).toBeInTheDocument();
-        expect(bodyAge).toBeInTheDocument();
+    const firstName = screen.getByText(/First Name/i);
+    const lastName = screen.getByText(/Last Name/i);
+    const birthday = screen.getByText(/Birthday/i);
+    const completionDate = screen.getByText(/Completion Date/i);
+    const bodyAge = screen.getByText(/Body Age/i);
+    expect(firstName).toBeInTheDocument();
+    expect(lastName).toBeInTheDocument();
+    expect(birthday).toBeInTheDocument();
+    expect(completionDate).toBeInTheDocument();
+    expect(bodyAge).toBeInTheDocument();
   });
 
   test("does not render user results if question 1 is null", () => {
@@ -204,16 +200,16 @@ describe("Questions", () => {
       </Provider>
     );
 
-        const firstName = screen.queryByText(/First Name/i);
-        const lastName = screen.queryByText(/Last Name/i);
-        const birthday = screen.queryByText(/Birthday/i)
-        const completionDate = screen.queryByText(/Completion Date/i);
-        const bodyAge = screen.queryByText(/Body Age/i)
-        expect(firstName).not.toBeInTheDocument();
-        expect(lastName).not.toBeInTheDocument();
-        expect(birthday).not.toBeInTheDocument();
-        expect(completionDate).not.toBeInTheDocument();
-        expect(bodyAge).not.toBeInTheDocument();
+    const firstName = screen.queryByText(/First Name/i);
+    const lastName = screen.queryByText(/Last Name/i);
+    const birthday = screen.queryByText(/Birthday/i);
+    const completionDate = screen.queryByText(/Completion Date/i);
+    const bodyAge = screen.queryByText(/Body Age/i);
+    expect(firstName).not.toBeInTheDocument();
+    expect(lastName).not.toBeInTheDocument();
+    expect(birthday).not.toBeInTheDocument();
+    expect(completionDate).not.toBeInTheDocument();
+    expect(bodyAge).not.toBeInTheDocument();
   });
 
   test("does not render user results if question 2 is null", () => {
@@ -226,16 +222,16 @@ describe("Questions", () => {
       </Provider>
     );
 
-        const firstName = screen.queryByText(/First Name/i);
-        const lastName = screen.queryByText(/Last Name/i);
-        const birthday = screen.queryByText(/Birthday/i)
-        const completionDate = screen.queryByText(/Completion Date/i);
-        const bodyAge = screen.queryByText(/Body Age/i)
-        expect(firstName).not.toBeInTheDocument();
-        expect(lastName).not.toBeInTheDocument();
-        expect(birthday).not.toBeInTheDocument();
-        expect(completionDate).not.toBeInTheDocument();
-        expect(bodyAge).not.toBeInTheDocument();
+    const firstName = screen.queryByText(/First Name/i);
+    const lastName = screen.queryByText(/Last Name/i);
+    const birthday = screen.queryByText(/Birthday/i);
+    const completionDate = screen.queryByText(/Completion Date/i);
+    const bodyAge = screen.queryByText(/Body Age/i);
+    expect(firstName).not.toBeInTheDocument();
+    expect(lastName).not.toBeInTheDocument();
+    expect(birthday).not.toBeInTheDocument();
+    expect(completionDate).not.toBeInTheDocument();
+    expect(bodyAge).not.toBeInTheDocument();
   });
 
   test("does not render user results if question 3 is null", () => {
@@ -248,15 +244,15 @@ describe("Questions", () => {
       </Provider>
     );
 
-        const firstName = screen.queryByText(/First Name/i);
-        const lastName = screen.queryByText(/Last Name/i);
-        const birthday = screen.queryByText(/Birthday/i)
-        const completionDate = screen.queryByText(/Completion Date/i);
-        const bodyAge = screen.queryByText(/Body Age/i)
-        expect(firstName).not.toBeInTheDocument();
-        expect(lastName).not.toBeInTheDocument();
-        expect(birthday).not.toBeInTheDocument();
-        expect(completionDate).not.toBeInTheDocument();
-        expect(bodyAge).not.toBeInTheDocument();
+    const firstName = screen.queryByText(/First Name/i);
+    const lastName = screen.queryByText(/Last Name/i);
+    const birthday = screen.queryByText(/Birthday/i);
+    const completionDate = screen.queryByText(/Completion Date/i);
+    const bodyAge = screen.queryByText(/Body Age/i);
+    expect(firstName).not.toBeInTheDocument();
+    expect(lastName).not.toBeInTheDocument();
+    expect(birthday).not.toBeInTheDocument();
+    expect(completionDate).not.toBeInTheDocument();
+    expect(bodyAge).not.toBeInTheDocument();
   });
 });
