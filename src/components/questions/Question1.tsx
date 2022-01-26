@@ -3,6 +3,8 @@ import { RootState } from "../../store/index";
 import { UserState } from "../../store/reducers/userReducer";
 import { useSelector } from "react-redux";
 
+
+
 const Question1: React.FC<{
   submitAnswer: (
     question: number,

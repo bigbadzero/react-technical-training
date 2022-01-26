@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Question1 from "./Question1";
 import Question2 from "./Question2";
 import Question3 from "./Question3";
-import { Fragment } from "react";
+import { Fragment, useCallback } from "react";
 import { updateQuestions } from "../../store/actions/userAction";
 import UserResults from '../results/UserResults'
 
@@ -24,9 +24,9 @@ const Questions = () => {
   const answer3 = userInfo ? userInfo.question3 : null;
 
   const submitAnswerHandler =
-    (question: number, answer: number, userState: UserState) => () => {
+    useCallback((question: number, answer: number, userState: UserState) => () => {
       dispatch(updateQuestions(question, answer, userState));
-    };
+    },[dispatch]);
 
   useEffect(() => {
     if (!token) {

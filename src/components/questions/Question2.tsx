@@ -2,6 +2,8 @@ import { Button, Card } from "react-bootstrap";
 import { RootState } from "../../store/index";
 import { UserState } from "../../store/reducers/userReducer";
 import { useSelector } from "react-redux";
+;
+
 
 const Question2: React.FC<{
   submitAnswer: (

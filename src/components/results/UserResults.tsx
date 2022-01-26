@@ -7,6 +7,8 @@ import TableData from "./TableData";
 import { Button } from "react-bootstrap";
 import { Fragment } from "react";
 import { resetAllQuestions } from "../../store/actions/userAction";
+;
+
 
 const UserResults = () => {
   const dispatch = useDispatch();
