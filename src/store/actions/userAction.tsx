@@ -12,16 +12,13 @@ import {
   USER_REGISTER_FAIL,
   RESET_ANSWERS_REQUEST,
   RESET_ANSWERS_SUCCESS,
-  RESET_ANSWERS_FAIL
+  RESET_ANSWERS_FAIL,
 } from "../constants/userConstants";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../index";
 import { UserState } from "../../store/reducers/userReducer";
-import IUserData from '../../models/IUserData';  
-;
-
-
+import IUserData from "../../models/IUserData";
 
 export const register =
   (
@@ -29,7 +26,7 @@ export const register =
     password: string,
     firstName: string,
     lastName: string,
-    birthday: Date,
+    birthday: Date
   ): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
   async (
     dispatch: ThunkDispatch<RootState, unknown, AnyAction>
@@ -40,17 +37,20 @@ export const register =
       });
 
       //fetch data from backend
-      const response = await fetch("https://localhost:44372/api/Account/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          firstName: firstName,
-          lastName: lastName,
-          birthday: birthday
-        }),
-      });
+      const response = await fetch(
+        "https://localhost:44372/api/Account/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+            birthday: birthday,
+          }),
+        }
+      );
 
       if (!response.ok) {
         const data = await response.json();
@@ -66,29 +66,25 @@ export const register =
       dispatch({
         type: USER_REGISTER_SUCCESS,
       });
-
     } catch (error) {
-      const errorMessage:string = "an unknown error occured"
+      const errorMessage: string = "an unknown error occured";
       // User REGISTER fail
-        dispatch({
-          type: USER_LOGIN_FAIL,
-          payload: errorMessage
-        });
+      dispatch({
+        type: USER_LOGIN_FAIL,
+        payload: errorMessage,
+      });
     }
   };
 
-
-  export const registrationAcknowled =
+export const registrationAcknowled =
   (): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
   async (
     dispatch: ThunkDispatch<RootState, unknown, AnyAction>
   ): Promise<void> => {
-
     dispatch({
       type: USER_REGISTER_SUCCESS_ACKOWLEDGED,
     });
   };
-
 
 export const login =
   (
@@ -104,14 +100,17 @@ export const login =
       });
 
       //fetch data from backend
-      const response = await fetch("https://localhost:44372/api/Account/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+      const response = await fetch(
+        "https://localhost:44372/api/Account/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        }
+      );
 
       if (!response.ok) {
         const data = await response.json();
@@ -143,12 +142,12 @@ export const login =
       localStorage.setItem("userInfo", JSON.stringify(userData));
     } catch (error) {
       console.log(error);
-      const errorMessage:string = "an unknown error occurred: " 
+      const errorMessage: string = "an unknown error occurred: ";
       // User login fail
-        dispatch({
-          type: USER_LOGIN_FAIL,
-          payload: errorMessage
-        });
+      dispatch({
+        type: USER_LOGIN_FAIL,
+        payload: errorMessage,
+      });
     }
   };
 
@@ -198,7 +197,6 @@ export const updateQuestions =
   async (
     dispatch: ThunkDispatch<RootState, unknown, AnyAction>
   ): Promise<void> => {
-
     try {
       dispatch({
         type: UPDATE_QUESTIONS_REQUEST,
@@ -263,26 +261,24 @@ export const updateQuestions =
       localStorage.setItem("userInfo", JSON.stringify(userData));
     } catch (error) {
       // User login fail
-      const errorMessage:string = "an unknown error occurred"
-        dispatch({
-          type: UPDATE_QUESTIONS_FAIL,
-          payload: errorMessage
-        });
+      const errorMessage: string = "an unknown error occurred";
+      dispatch({
+        type: UPDATE_QUESTIONS_FAIL,
+        payload: errorMessage,
+      });
     }
   };
 
-
-  export const resetAllQuestions =
+export const resetAllQuestions =
   (
     user: IUserData
   ): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
   async (
     dispatch: ThunkDispatch<RootState, unknown, AnyAction>
   ): Promise<void> => {
-
     try {
       dispatch({
-        type: UPDATE_QUESTIONS_REQUEST,
+        type: RESET_ANSWERS_REQUEST,
       });
 
       //fetch data from backend
@@ -328,10 +324,10 @@ export const updateQuestions =
       localStorage.setItem("userInfo", JSON.stringify(userData));
     } catch (error) {
       // User login fail
-      const errorMessage:string = "an unknown error occurred"
-        dispatch({
-          type: RESET_ANSWERS_FAIL,
-          payload: errorMessage
-        });
+      const errorMessage: string = "an unknown error occurred";
+      dispatch({
+        type: RESET_ANSWERS_FAIL,
+        payload: errorMessage,
+      });
     }
   };
