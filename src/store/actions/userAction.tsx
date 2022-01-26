@@ -9,12 +9,18 @@ import {
   UPDATE_QUESTIONS_FAIL,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_SUCCESS_ACKOWLEDGED,
-  USER_REGISTER_FAIL
+  USER_REGISTER_FAIL,
+  RESET_ANSWERS_REQUEST,
+  RESET_ANSWERS_SUCCESS,
+  RESET_ANSWERS_FAIL
 } from "../constants/userConstants";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { RootState } from "../index";
 import { UserState } from "../../store/reducers/userReducer";
+import IUserData from '../../models/IUserData';  
+;
+
 
 
 export const register =
@@ -260,6 +266,71 @@ export const updateQuestions =
       const errorMessage:string = "an unknown error occurred"
         dispatch({
           type: UPDATE_QUESTIONS_FAIL,
+          payload: errorMessage
+        });
+    }
+  };
+
+
+  export const resetAllQuestions =
+  (
+    user: IUserData
+  ): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
+  async (
+    dispatch: ThunkDispatch<RootState, unknown, AnyAction>
+  ): Promise<void> => {
+
+    try {
+      dispatch({
+        type: UPDATE_QUESTIONS_REQUEST,
+      });
+
+      //fetch data from backend
+      const response = await fetch(
+        "https://localhost:44372/api/Account/resetanswers",
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: user.email,
+            token: user.token,
+            timeout: user.timeout,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const data = await response.json();
+        const error = data.error.message;
+        dispatch({
+          type: RESET_ANSWERS_FAIL,
+          payload: error,
+        });
+      }
+      const data = await response.json();
+      const userData = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        birthday: data.birthday,
+        question1: data.question1,
+        question2: data.question2,
+        question3: data.question3,
+        token: data.token,
+        timeout: data.timeout,
+        email: data.email,
+        completionDate: data.completionDate,
+      };
+      //pass this data to the reducer in the payload of the action
+      dispatch({
+        type: RESET_ANSWERS_SUCCESS,
+        payload: userData,
+      });
+      localStorage.setItem("userInfo", JSON.stringify(userData));
+    } catch (error) {
+      // User login fail
+      const errorMessage:string = "an unknown error occurred"
+        dispatch({
+          type: RESET_ANSWERS_FAIL,
           payload: errorMessage
         });
     }

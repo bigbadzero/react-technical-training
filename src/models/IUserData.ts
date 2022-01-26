@@ -7,6 +7,8 @@ interface IUserData {
     question2?: number;
     question3?: number;
     completionDate?: Date;
+    token?:string;
+    timeout?: number;
 }
 
 export default IUserData;

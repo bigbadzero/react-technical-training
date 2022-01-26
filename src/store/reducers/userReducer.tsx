@@ -10,7 +10,11 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
-  USER_REGISTER_SUCCESS_ACKOWLEDGED
+  USER_REGISTER_SUCCESS_ACKOWLEDGED,
+  RESET_ANSWERS_REQUEST,
+  RESET_ANSWERS_SUCCESS,
+  RESET_ANSWERS_FAIL
+
 } from "../constants/userConstants";
 
 export interface UserState {
@@ -65,6 +69,12 @@ export const userLoginReducer = (
         return { loading: false, error: action.payload};
       case USER_REGISTER_SUCCESS_ACKOWLEDGED: 
         return {loading: false, registered: false}
+      case RESET_ANSWERS_REQUEST: 
+        return {loading: true}
+      case RESET_ANSWERS_SUCCESS:
+        return{loading: false, userInfo: action.payload}
+      case RESET_ANSWERS_FAIL:
+        return{loading: false, error: action.payload}
     default:
       return state;
   }
